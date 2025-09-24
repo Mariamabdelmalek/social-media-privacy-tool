@@ -1,4 +1,7 @@
+// src\pages\Reports.js
 import React from "react";
+import "../App.scss";
+
 
 function Reports() {
 
