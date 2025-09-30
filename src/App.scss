@@ -43,3 +43,23 @@ body {
     transform: rotate(360deg);
   }
 }
+.platform-selection {
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.platform-option {
+  display: inline-block;
+  margin-right: 1.5rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.platform-option input {
+  margin-right: 0.3rem;
+}
+
+.error-text {
+  color: #d9534f;
+  margin-top: 0.5rem;
+}

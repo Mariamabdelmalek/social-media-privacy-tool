@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Reports from './pages/Reports';
+import Scan from './pages/Scan';
 
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/reports" element={<Reports />} />
+          <Route path="/reports" element={<Reports />}/>
+          <Route path="/scan" element={<Scan/>} />
         </Routes>
     </div>
     </Router>

@@ -1,6 +1,6 @@
 // src\pages\Dashboard.js
 import React from "react";
-
+import '../App.scss';
 function Dashboard() {
     return (
         <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
