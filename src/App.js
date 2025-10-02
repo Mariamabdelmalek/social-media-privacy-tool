@@ -7,21 +7,24 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Reports from './pages/Reports';
 import Scan from './pages/Scan';
+import { UserProvider } from './context/UserContext';
 
 
 function App() {
   return (
-    <Router>
-      <NavBar />
-    <div className="app-container">
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/reports" element={<Reports />}/>
-          <Route path="/scan" element={<Scan/>} />
-        </Routes>
-    </div>
-    </Router>
+    <UserProvider> {/* provide user context to entire app to save login between pages */}
+      <Router>
+        <NavBar />
+      <div className="app-container">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/reports" element={<Reports />}/>
+            <Route path="/scan" element={<Scan/>} />
+          </Routes>
+      </div>
+      </Router>
+    </UserProvider>
   );
 }
 
