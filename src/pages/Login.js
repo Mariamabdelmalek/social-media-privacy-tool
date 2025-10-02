@@ -3,11 +3,12 @@ import React from 'react';
 import '../App.scss';
 
 function Login() {
-  return (
-    <div >
-      Login Page 
-    </div>
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [accounts, setAccounts] = useState(
+    JSON.parse(localStorage.getItem('accounts')) || []
   );
+  const [isLogin, setIsLogin] = useState(true);
 }
 
 export default Login;
