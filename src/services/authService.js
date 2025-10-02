@@ -13,10 +13,12 @@ export function saveAccounts(accounts) {
 export function createAccount(username, password) {
     const accounts = getAccounts();
 
+    //Checks for duplicate usernames
     if (accounts.find(acc => acc.username === username)) {
         throw new Error('Username already exists');
     }
 
+    //Stores username and/or password, can be updated to be saved to backend in the future
     const newAccount = { username, password };
     const updatedAccounts = [...accounts, newAccount];
     saveAccounts(updatedAccounts);
@@ -28,8 +30,10 @@ export function createAccount(username, password) {
 export function login(username, password) {
     const accounts = getAccounts();
     
+    //Verifies the username and pasword match an existing account
     const user = accounts.find(acc => acc.username === username && acc.password === password);
 
+    //Throws error if account is not valid
     if (!user) {
         throw new Error('Invalid username or password');
     }

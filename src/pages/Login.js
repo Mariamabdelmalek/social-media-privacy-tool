@@ -12,15 +12,18 @@ function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
 
+  //Handles the login or account creation
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
 
     try {
       if (isLogin) {
+        //Attempts the login
         const loggedInUser = loginService(username, password);
         login(loggedInUser.username);
       } else {
+        //Creates the new account and logs them in automatically
         const newUser = createAccount(username, password);
         login(newUser.username);
       }
@@ -31,6 +34,7 @@ function Login() {
     }
   };
 
+  //Handles the logout
   const handleLogout = () => {
     logoutService();
     logout();

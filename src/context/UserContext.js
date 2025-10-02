@@ -5,7 +5,10 @@ const UserContext = createContext(null);
 export function UserProvider({children}) {
     const [user, setUser] = useState(null);
 
+    //This sets the logged-in user
     const login = (user) => setUser(user);
+
+    //This clears the logged in user
     const logout = () => setUser(null);
 
     return (
@@ -15,6 +18,7 @@ export function UserProvider({children}) {
     );
 }
 
+//Hook so components can use the context
 export function useUser() {
     return useContext(UserContext);
 }
