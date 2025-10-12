@@ -2,10 +2,15 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend
+} from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import '../App.scss';
-
-
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 const PLATFORM_OPTIONS = [
@@ -34,8 +39,13 @@ const Scan = () => {
         : [...prev, platformId]
     );
   };
-
+  
   const handleScan = async () => {
+    if (selectedPlatforms.length === 0) {
+    setError('Please select at least one platform to scan.');
+    setLoading(false);
+     return;
+  }
     setLoading(true);
     setError('');
     setPrivacyScore(null);
@@ -46,19 +56,15 @@ const Scan = () => {
 
     try {
 
-
-       
-      setPrivacyScore(data.privacyScore);
-      setExposedData(data.exposedData);
-      setRecommendations(data.recommendations); 
-      const { data } = await axios.get('/api/scan');
+      const response = await axios.post('http://localhost:5000/api/scan', {
+      platforms: selectedPlatforms
+      });
+      
+      const  data  = response.data;
       setPrivacyScore(data.privacyScore);
       setExposedData(data.exposedData);
       setRecommendations(data.recommendations);
       
-      
-      // Expecting API to return something like:
-      // { labels: [...], datasets: [...] }
       setChartData({
         labels: data.chart.labels,
         datasets: [

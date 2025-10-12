@@ -1,5 +1,5 @@
 
-// Function returns stored accounts from local storage
+// src\services\authService.js
 export function getAccounts() {
     return JSON.parse(localStorage.getItem('accounts')) || [];
 }

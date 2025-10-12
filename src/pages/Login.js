@@ -1,4 +1,4 @@
-// src\pages\login.js
+// src\pages\Login.js
 import React, {useState} from 'react';
 import '../App.scss';
 import { createAccount, login as loginService, logout as logoutService } from '../services/authService';
