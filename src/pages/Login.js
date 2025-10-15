@@ -12,7 +12,6 @@ function Login() {
 
 
   const navigate = useNavigate();
-  navigate('/');
   const {user, login, logout} = useUser();
 
   const [username, setUsername] = useState('');
@@ -37,6 +36,7 @@ function Login() {
       }
       setUsername('');
       setPassword('');
+      navigate('/');
     } catch (err) {
       setError(err.message);
     }
