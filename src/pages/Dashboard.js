@@ -1,3 +1,4 @@
+// src\pages\Dashboard.js
 import React from "react";
 import "../App.scss";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
