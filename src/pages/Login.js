@@ -3,8 +3,16 @@ import React, {useState} from 'react';
 import '../App.scss';
 import { createAccount, login as loginService, logout as logoutService } from '../services/authService';
 import { useUser } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 function Login() {
+
+
+  const navigate = useNavigate();
+  navigate('/');
   const {user, login, logout} = useUser();
 
   const [username, setUsername] = useState('');
@@ -41,7 +49,7 @@ function Login() {
   };
 
   return (
-    <div classname="login-container">
+    <div className="login-container">
       {user ? (
         <div>
           <h2>Welcome, {user}!</h2>
