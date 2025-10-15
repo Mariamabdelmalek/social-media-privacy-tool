@@ -1,3 +1,4 @@
+// src\App.js
 import React from "react";
 import "./App.scss";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -7,14 +8,24 @@ import Login from "./pages/Login";
 import Reports from "./pages/Reports";
 import Scan from "./pages/Scan";
 import { UserProvider } from "./context/UserContext";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (<UserProvider>
-    {/* Provide user context to entire app to save login between pages */} <Router> <NavBar /> <div className="app-container"> <Routes>
-      <Route path="/" element={<Dashboard />} />
+    {/* Provide user context to entire app to save login between pages */} <Router>
+     <NavBar /> 
+     <div className="app-container"> 
+      <Routes>
+
       <Route path="/login" element={<Login />} />
-      <Route path="/reports" element={<Reports />} />
-      <Route path="/scan" element={<Scan />} /> </Routes> </div> </Router> </UserProvider>
+      <Route path="/"element={<PrivateRoute><Dashboard /> </PrivateRoute>}/>
+      <Route path="/reports" element={<PrivateRoute> <Reports /> </PrivateRoute>
+      }/>
+      <Route path="/scan" element={ <PrivateRoute> <Scan /> </PrivateRoute>}/>
+      </Routes>
+     </div> 
+     </Router> 
+     </UserProvider>
   );
 }
 
