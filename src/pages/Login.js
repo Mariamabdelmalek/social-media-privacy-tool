@@ -12,7 +12,7 @@ function Login() {
 
 
   const navigate = useNavigate();
-  navigate('/');
+  
   const {user, login, logout} = useUser();
 
   const [username, setUsername] = useState('');
@@ -28,12 +28,14 @@ function Login() {
       if (isLogin) {
         const loggedInUser = loginService(username, password);
         login(loggedInUser.username);
+        navigate('/');
       } else {
         const newUser = createAccount(username, password);
         login(newUser.username);
       }
       setUsername('');
       setPassword('');
+      navigate('/');
     } catch (err) {
       setError(err.message);
     }
@@ -61,6 +63,7 @@ function Login() {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter your username"
             required
             />
           </div>
