@@ -35,9 +35,10 @@ function Dashboard() {
             <header style={{ textAlign: "center", marginBottom: "2rem" }}>
                 <h1 style={{ fontSize: "2.5rem", color: "#333" }}>Privacy Dashboard</h1>
                 <p style={{ color: "#666", fontSize: "1rem" }}>
-                    Overview of your social media privacy risks, scan history, and personalized recommendations. </p> </header>
+                    Overview of your social media privacy risks, scan history, and personalized recommendations.
+                </p>
+            </header>
 
-            ```
             {/* Risk Scores */}
             <section style={{ marginBottom: "2rem" }}>
                 <h2 style={{ color: "#444", marginBottom: "1rem" }}>Recent Risk Scores</h2>

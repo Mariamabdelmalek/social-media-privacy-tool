@@ -11,21 +11,42 @@ import { UserProvider } from "./context/UserContext";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
-  return (<UserProvider>
-    {/* Provide user context to entire app to save login between pages */} <Router>
-     <NavBar /> 
-     <div className="app-container"> 
-      <Routes>
-
-      <Route path="/login" element={<Login />} />
-      <Route path="/"element={<PrivateRoute><Dashboard /> </PrivateRoute>}/>
-      <Route path="/reports" element={<PrivateRoute> <Reports /> </PrivateRoute>
-      }/>
-      <Route path="/scan" element={ <PrivateRoute> <Scan /> </PrivateRoute>}/>
-      </Routes>
-     </div> 
-     </Router> 
-     </UserProvider>
+  return (
+    <UserProvider>
+      {/* Provide user context to entire app to save login between pages */}
+      <Router>
+        <NavBar />
+        <div className="app-container">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/reports"
+              element={
+                <PrivateRoute>
+                  <Reports />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/scan"
+              element={
+                <PrivateRoute>
+                  <Scan />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 
