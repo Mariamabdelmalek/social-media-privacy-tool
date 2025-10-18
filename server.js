@@ -1,3 +1,5 @@
+require('dotenv').config();
+const axios = require('axios'); 
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -8,6 +10,7 @@ app.post('/api/scan', (req, res) => {
     if (!platforms || platforms.length === 0) {
     return res.status(400).json({ error: 'No platforms selected' });
   }
+
   // Simulate scan logic
   const exposedData = [];
   const recommendations = [];
