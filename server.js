@@ -35,10 +35,10 @@ app.post('/api/scan', (req, res) => {
     }
   });
 
-  // Simulate a privacy score
+ 
   const score = ['A', 'B+', 'B', 'C'][Math.floor(Math.random() * 4)];
 
-  // Simulate chart data
+ 
   const chart = {
     labels: ['Identity Exposure', 'Location Exposure', 'Visual Content'],
     datasets: {
