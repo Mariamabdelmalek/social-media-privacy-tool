@@ -4,6 +4,7 @@ import "../App.scss";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 
 function Dashboard() {
+    
     const riskData = [
         { platform: "Instagram", score: 72, icon: <FaInstagram />, color: "#E1306C" },
         { platform: "Facebook", score: 65, icon: <FaFacebookF />, color: "#3b5998" },
@@ -33,7 +34,7 @@ function Dashboard() {
         >
             {/* Header */}
             <header style={{ textAlign: "center", marginBottom: "2rem" }}>
-                <h1 style={{ fontSize: "2.5rem", color: "#333" }}>Privacy Dashboard</h1>
+                <h1 style={{ fontSize: "2.5rem", color: "#333" }}>Welcome to your Privacy Dashboard</h1>
                 <p style={{ color: "#666", fontSize: "1rem" }}>
                     Overview of your social media privacy risks, scan history, and personalized recommendations.
                 </p>

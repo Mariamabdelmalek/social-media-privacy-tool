@@ -1,6 +1,8 @@
 // src\pages\Scan.js
 
-import React, { useState } from 'react';
+import React, { useState,useRef, useEffect } from 'react';
+import { FaInstagram, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { SiTiktok } from 'react-icons/si';
 import axios from 'axios';
 import {
   Chart as ChartJS,
@@ -30,14 +32,21 @@ const Scan = () => {
   const [chartData, setChartData] = useState(null);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
 
-
+  const instagramButtonRef = useRef(null);
    const togglePlatform = (platformId) => {
     setError('');
-    setSelectedPlatforms(prev =>
-      prev.includes(platformId)
+    setSelectedPlatforms(prev => {
+      
+      const updated = prev.includes(platformId)
         ? prev.filter(p => p !== platformId)
-        : [...prev, platformId]
-    );
+        : [...prev, platformId];
+      if (platformId === 'instagram' && !prev.includes('instagram')) {
+        setTimeout(() => {
+          instagramButtonRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100); // slight delay to ensure DOM updates
+      }
+      return updated;
+    });
   };
   
   const handleScan = async () => {
@@ -84,22 +93,57 @@ const Scan = () => {
   return (
     <div className="scan-container">
       <h1>Scan Your Social Media Privacy</h1>
-      <p>Click below to scan your account for exposed personal data.</p>
       <p>Select which accounts you’d like to analyze:</p>
-
-      <div className="platform-selection">
-        {PLATFORM_OPTIONS.map(({ id, label }) => (
-          <label key={id} className="platform-option">
-            <input
-              type="checkbox"
-              value={id}
-              checked={selectedPlatforms.includes(id)}
-              onChange={() => togglePlatform(id)}
-            />
-            {label}
-          </label>
-        ))}
+      
+  <div className="platform-list">
+    {PLATFORM_OPTIONS.map(platform => (
+      <div className="platform-card" key={platform.id}>
+        {platform.id === 'instagram' && <FaInstagram size={32} />}
+        {platform.id === 'facebook' && <FaFacebook size={32} />}
+        {platform.id === 'twitter' && <FaTwitter size={32} />}
+        {platform.id === 'linkedin' && <FaLinkedin size={32} />}
+        {platform.id === 'tiktok' && <SiTiktok size={32} />}
+        <label>
+          <input
+            type="checkbox"
+            value={platform.id}
+            checked={selectedPlatforms.includes(platform.id)}
+            onChange={() => togglePlatform(platform.id)}
+          />
+          {platform.label}
+        </label>
+        {/* Connect buttons per platform */}
+       {platform.id === 'instagram' && (
+        <button
+          ref={instagramButtonRef}
+          onClick={() => window.location.href = 'http://localhost:5000/auth/instagram'}
+        >
+          Connect Instagram
+        </button>
+      )}
+      {platform.id === 'facebook' && (
+        <button onClick={() => window.location.href = 'http://localhost:5000/auth/facebook'}>
+          Connect Facebook
+        </button>
+      )}
+      {platform.id === 'twitter' && (
+        <button onClick={() => window.location.href = 'http://localhost:5000/auth/twitter'}>
+          Connect Twitter
+        </button>
+      )}
+      {platform.id === 'linkedin' && (
+        <button onClick={() => window.location.href = 'http://localhost:5000/auth/linkedin'}>
+          Connect LinkedIn
+        </button>
+      )}
+      {platform.id === 'tiktok' && (
+        <button onClick={() => window.location.href = 'http://localhost:5000/auth/tiktok'}>
+          Connect TikTok
+        </button>
+      )}
       </div>
+    ))}
+  </div>
 
       {error && <p className="error-text">{error}</p>}
 
