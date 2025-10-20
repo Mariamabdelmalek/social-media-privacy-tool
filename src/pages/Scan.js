@@ -13,6 +13,8 @@ import {
 import { Pie } from 'react-chartjs-2';
 import '../App.scss';
 ChartJS.register(ArcElement, Tooltip, Legend);
+import { InstagramLogin } from '@amraneze/react-instagram-login';
+
 
 
 const PLATFORM_OPTIONS = [
@@ -89,6 +91,10 @@ const Scan = () => {
       setLoading(false);
     }
   };
+     const handleInstagramResponse = (response) => {
+  console.log("Instagram response:", response);
+  
+    };
 
   return (
     <div className="scan-container">
@@ -114,12 +120,17 @@ const Scan = () => {
         </label>
         {/* Connect buttons per platform */}
        {platform.id === 'instagram' && (
-        <button
-          ref={instagramButtonRef}
-          onClick={() => window.location.href = 'http://localhost:5000/auth/instagram'}
-        >
-          Connect Instagram
-        </button>
+        <div ref={instagramButtonRef}>
+            <InstagramLogin
+            clientId="693335869960909"
+            buttonText="Connect Instagram"
+            onSuccess={handleInstagramResponse}
+            onFailure={handleInstagramResponse}
+            useRedirect={true}
+            redirectUri="http://localhost:3000/auth/instagram/callback"
+          />
+        </div>
+
       )}
       {platform.id === 'facebook' && (
         <button onClick={() => window.location.href = 'http://localhost:5000/auth/facebook'}>
