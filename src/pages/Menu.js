@@ -1,4 +1,4 @@
-// src\pages\menu.js
+// src\pages\Menu.js
 import React from 'react';
 import '../App.scss';
 import { Link } from 'react-router-dom';

@@ -11,6 +11,7 @@ export function saveAccounts(accounts) {
 
 // Creates new account
 export function createAccount(username, password) {
+    return new Promise((resolve, reject) => {
     const accounts = getAccounts();
 
     //Checks for duplicate usernames
@@ -19,15 +20,20 @@ export function createAccount(username, password) {
     }
 
     //Stores username and/or password, can be updated to be saved to backend in the future
-    const newAccount = { username, password };
-    const updatedAccounts = [...accounts, newAccount];
-    saveAccounts(updatedAccounts);
-    
-    return newAccount;
+    if (accounts.find(acc => acc.username === username)) {
+      reject(new Error('Username already exists'));
+    } else {
+      const newAccount = { username, password };
+      const updatedAccounts = [...accounts, newAccount];
+      saveAccounts(updatedAccounts);
+      resolve(newAccount);
+    }
+  });
 }
 
 //Login the user
 export function login(username, password) {
+    return new Promise((resolve, reject) => {
     const accounts = getAccounts();
     
     //Verifies the username and pasword match an existing account
@@ -35,12 +41,12 @@ export function login(username, password) {
 
     //Throws error if account is not valid
     if (!user) {
-        throw new Error('Invalid username or password');
+      reject(new Error('Invalid username or password'));
+    } else {
+      resolve(user);
     }
-
-    return user;
+  });
 }
-
 //Clears current user session
 export function logout() {
 
