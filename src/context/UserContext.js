@@ -5,22 +5,27 @@ const UserContext = createContext(null);
 
 export function UserProvider({children}) {
     const [user, setUser] = useState(() => {
+        try {
         // Initialize user from localStorage if available
         const savedUser = localStorage.getItem('currentUser');
-        return savedUser ? savedUser : null;
+        return savedUser ? JSON.parse(savedUser) : null;
+    } catch (error) {
+        console.error("Failed to parse user from localStorage", error);
+        localStorage.removeItem('currentUser');
+        return null;
+    }
     });
-
     // Persist user to localStorage whenever it changes
     useEffect(() => {
         if (user) {
-            localStorage.setItem('currentUser', user);
+            localStorage.setItem('currentUser', JSON.stringify(user));
         } else {
             localStorage.removeItem('currentUser');
         }
     }, [user]);
 
     //This sets the logged-in user
-    const login = (username) => setUser(username);
+    const login = (userData) => setUser(userData); 
 
     //This clears the logged in user
     const logout = () => setUser(null);

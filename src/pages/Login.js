@@ -20,29 +20,29 @@ function Login() {
   const [error, setError] = useState('');
 
   //Handles the login or account creation
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setError('');
 
     try {
       if (isLogin) {
         //Attempts the login
-        const loggedInUser = loginService(username, password);
-        login(loggedInUser.username);
-        navigate('/');
+        const loggedInUser =  await loginService(username, password);
+        login({ username: loggedInUser.username });
+        
       } else {
         //Creates the new account and logs them in automatically
-        const newUser = createAccount(username, password);
-        login(newUser.username);
+        const newUser = await createAccount(username, password);
+        login({ username: newUser.username });
       }
       setUsername('');
       setPassword('');
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
-      setError(err.message);
+      setError(err.message|| 'Login failed');
     }
   };
-
+ 
   //Handles the logout
   const handleLogout = () => {
     logoutService();
@@ -53,7 +53,7 @@ function Login() {
     <div className="login-container">
       {user ? (
         <div>
-          <h2>Welcome, {user}!</h2>
+          <h2>Welcome, {user?.username}!</h2>
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (
