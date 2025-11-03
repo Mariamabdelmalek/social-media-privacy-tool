@@ -9,6 +9,8 @@ import Reports from "./pages/Reports";
 import Scan from "./pages/Scan";
 import { UserProvider } from "./context/UserContext";
 import PrivateRoute from "./components/PrivateRoute";
+import InstagramCallback from "./pages/InstagramCallback";
+
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <div className="app-container">
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/auth/instagram/callback" element={<InstagramCallback />} />
+
             <Route
               path="/dashboard"
               element={

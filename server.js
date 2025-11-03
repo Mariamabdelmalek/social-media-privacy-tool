@@ -9,6 +9,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const session = require('express-session');
+
+app.use(session({
+  secret: 'MySuperSecretKey', // change this to something secure
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // set to true if using HTTPS
+}));
+
 // ===============================
 // ✅ Instagram OAuth (Business Login)
 // ===============================
@@ -41,8 +50,10 @@ app.get('/auth/instagram/callback', async (req, res) => {
         },
       }
     );
-
+    
     const { access_token } = tokenResponse.data;
+    req.session.access_token = access_token;
+    
 
     // Get user's connected Instagram Business Accounts
     const accountsResponse = await axios.get(
@@ -119,6 +130,7 @@ app.post('/api/scan', (req, res) => {
     chart,
   });
 });
+
 
 // ===============================
 // ✅ Server Config

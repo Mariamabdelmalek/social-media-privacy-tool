@@ -121,8 +121,11 @@ const Scan = () => {
   <div ref={instagramButtonRef}>
     <button
       onClick={() => {
-        const clientId = '693335869960909'
-        const redirectUri = 'http://localhost:3000/auth/instagram/callback'
+        const clientId = '1350290880087499'
+        const redirectUri = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000/auth/instagram/callback'
+        : 'https://social-media-privacy-tool.vercel.app/auth/instagram/callback';
+
         const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=user_profile,user_media&response_type=code`
         window.location.href = authUrl
       }}

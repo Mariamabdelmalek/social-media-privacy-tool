@@ -15,6 +15,9 @@ export function UserProvider({children}) {
         return null;
     }
     });
+    const [accessToken, setAccessToken] = useState(() => {
+    return localStorage.getItem('access_token') || null;
+     });
     // Persist user to localStorage whenever it changes
     useEffect(() => {
         if (user) {
@@ -23,15 +26,22 @@ export function UserProvider({children}) {
             localStorage.removeItem('currentUser');
         }
     }, [user]);
-
+    useEffect(() => {
+    if (accessToken) {
+      localStorage.setItem('access_token', accessToken);
+    } else {
+      localStorage.removeItem('access_token');
+    }
+  }, [accessToken]);
     //This sets the logged-in user
     const login = (userData) => setUser(userData); 
 
     //This clears the logged in user
     const logout = () => setUser(null);
+                         setAccessToken(null);
 
     return (
-        <UserContext.Provider value = {{user, login, logout}}>
+        <UserContext.Provider value = {{user, login, logout, accessToken, setAccessToken}}>
             {children}
         </UserContext.Provider>
     );
