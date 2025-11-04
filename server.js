@@ -131,6 +131,67 @@ app.post('/api/scan', (req, res) => {
   });
 });
 
+app.get('/api/scan/posts', async (req, res) => {
+  const accessToken = req.session.access_token;
+
+  if (!accessToken) {
+    return res.status(401).json({ error: 'User not authenticated. Please log in with Instagram.' });
+  }
+
+  try {
+    // Step 1: Get Instagram user ID
+    const userResponse = await axios.get(`https://graph.facebook.com/v19.0/me?fields=id&access_token=${accessToken}`);
+    const userId = userResponse.data.id;
+
+    // Step 2: Get connected Instagram Business Account
+    const igAccountResponse = await axios.get(`https://graph.facebook.com/v19.0/${userId}?fields=instagram_business_account&access_token=${accessToken}`);
+    const igUserId = igAccountResponse.data.instagram_business_account?.id;
+
+    if (!igUserId) {
+      return res.status(400).json({ error: 'No Instagram Business Account connected.' });
+    }
+
+    // Step 3: Fetch media posts
+    const mediaResponse = await axios.get(`https://graph.facebook.com/v19.0/${igUserId}/media?fields=id,caption,media_type,media_url,timestamp&access_token=${accessToken}`);
+    const posts = mediaResponse.data.data;
+
+    // Step 4: Analyze each post
+    const report = posts.map(post => {
+      const risks = [];
+
+      // Caption analysis
+      if (post.caption) {
+        if (post.caption.match(/home|address|phone|location|birthday|email/i)) {
+          risks.push('Caption may contain personal information');
+        }
+        if (post.caption.match(/politics|mental health|religion|sexuality/i)) {
+          risks.push('Caption may reveal sensitive opinions');
+        }
+      }
+
+      // Timestamp analysis
+      const postedAtNight = new Date(post.timestamp).getHours() >= 22;
+      if (postedAtNight) {
+        risks.push('Post made late at night — may indicate emotional vulnerability');
+      }
+
+      return {
+        id: post.id,
+        caption: post.caption || '',
+        media_type: post.media_type,
+        media_url: post.media_url,
+        timestamp: post.timestamp,
+        risks,
+        risk_level: risks.length === 0 ? 'Low' : risks.length === 1 ? 'Medium' : 'High'
+      };
+    });
+
+    res.json({ report });
+  } catch (error) {
+    console.error('Post scan error:', error.response?.data || error.message);
+    res.status(500).json({ error: 'Failed to scan Instagram posts', details: error.response?.data || error.message });
+  }
+});
 
 // ===============================
 // ✅ Server Config
