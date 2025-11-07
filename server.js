@@ -15,7 +15,7 @@ app.use(session({
   secret: 'MySuperSecretKey', // change this to something secure
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // set to true if using HTTPS
+  cookie: { secure: process.env.NODE_ENV === 'production'} // set to true if using HTTPS
 }));
 
 // ===============================
@@ -23,6 +23,7 @@ app.use(session({
 // ===============================
 
 // Step 1: Redirect user to Facebook OAuth dialog for Instagram login
+const redirectUri = encodeURIComponent(process.env.INSTAGRAM_REDIRECT_URI);
 app.get('/auth/instagram', (req, res) => {
   const authUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${process.env.INSTAGRAM_APP_ID}&redirect_uri=${process.env.INSTAGRAM_REDIRECT_URI}&scope=instagram_basic,pages_show_list&response_type=code`;
   console.log('Redirecting to:', authUrl);

@@ -106,3 +106,18 @@ body {
   font-size: 16px;
   border-radius: 6px;
 }
+.instagram-report {
+  padding: 2rem;
+}
+
+.post-card {
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.post-card.low { border-left: 5px solid green; }
+.post-card.medium { border-left: 5px solid orange; }
+.post-card.high { border-left: 5px solid red; }
