@@ -8,7 +8,12 @@ const InstagramCallback = () => {
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get('code');
     if (code) {
-      axios.get(`http://localhost:5000/auth/instagram/callback?code=${code}`)
+       const backendUrl =
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:5000'
+          : 'https://social-media-privacy-tool.vercel.app';
+          
+      axios.get(`${backendUrl}/api/auth/instagram/callback?code=${code}`)
         .then(res => {
           console.log('Login success:', res.data);
           navigate('/scan'); 
