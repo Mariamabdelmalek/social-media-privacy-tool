@@ -23,7 +23,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/auth/instagram/callback" element={<InstagramCallback />} />
              <Route path="/scan" element={<Scan />} />
-        <Route path="/auth/instagram/callback" element={<InstagramCallback />} />
+      
             <Route
               path="/dashboard"
               element={
