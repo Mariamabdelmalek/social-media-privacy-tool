@@ -1,0 +1,79 @@
+@import './_variables';
+
+/* Your body, button, and other styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: $light-gray;
+}
+
+button {
+  background-color: $secondary-color;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darken($secondary-color, 10%);
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.scan-button {
+  position: sticky;
+  bottom: 20px;
+  background-color: $secondary-color;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+.button-blue {
+  background-color: $secondary-color;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-blue:hover {
+  background-color: darken($secondary-color, 10%);
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+}
